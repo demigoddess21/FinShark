@@ -18,51 +18,51 @@ namespace api.Repository
             _context = context;
         }
 
-        public async Task<Comment> CreateAsync(Comment commentModel)
+        public async Task<Comments> CreateAsync(Comments CommentsModel)
         {
-            await _context.Comments.AddAsync(commentModel);
+            await _context.Comments.AddAsync(CommentsModel);
             await _context.SaveChangesAsync();
-            return commentModel;
+            return CommentsModel;
 
         }
 
-        public async Task<Comment?> DeleteAsync(int id)
+        public async Task<Comments?> DeleteAsync(int id)
         {
-            var commentModel = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
-            if (commentModel == null)
+            var CommentsModel = await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
+            if (CommentsModel == null)
             {
                 return null;
             }
 
 
-            _context.Comments.Remove(commentModel);
+            _context.Comments.Remove(CommentsModel);
             await _context.SaveChangesAsync();
-            return commentModel;
+            return CommentsModel;
         }
 
-        public async Task<List<Comment>> GetAllAsync()
+        public async Task<List<Comments>> GetAllAsync()
         {
             return await _context.Comments.ToListAsync();
         }
 
-        public async Task<Comment?> GetByIdAsync(int id)
+        public async Task<Comments?> GetByIdAsync(int id)
         {
             return await _context.Comments.FindAsync(id);
         }
 
-        public async Task<Comment?> UpdateAsync(int id, UpdateCommentRequestDto updateDto)
+        public async Task<Comments?> UpdateAsync(int id, UpdateCommentRequestDto updateDto)
         {
-            var existingComment = await _context.Comments.FindAsync(id);
+            var existingComments = await _context.Comments.FindAsync(id);
 
-            if (existingComment == null)
+            if (existingComments == null)
             {
                 return null;
             }
 
-            existingComment.Title = updateDto.Title;
-            existingComment.Content = updateDto.Content;
+            existingComments.Title = updateDto.Title;
+            existingComments.Content = updateDto.Content;
             await _context.SaveChangesAsync();
-            return existingComment;
+            return existingComments;
 
         }
     }

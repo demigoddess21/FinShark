@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace api.Model
 {
     [Table("Comments")]
-    public class Comment
+    public class Comments
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
